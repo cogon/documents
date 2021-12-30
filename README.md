@@ -25,4 +25,19 @@ api:
 
   信号量（select通过这个实现）
 * sys_mbox_new  sys_arch_mbox_tryfetch
-* 
+
+
+4.lwip 流程
+ 
+### * 主线程
+>   tcpip_thread->tcpip_thread_handle_msg() :收到邮件就处理.调用msg中设置的回调函数
+>   
+>   tcpip_input()接受的包  和   lwip_send() 应用线程发送的包  都会将包放到主线程的mailbox里. sys_mbox_post()
+
+>   tcpip_input() -> sys_mbox_trypost() 注册的回调函数是 : ethernet_input()
+>   
+>   lwip_send() ->  netconn_send(){ 注册的回调函数是 lwip_netconn_do_send()  }-> netconn_apimsg() -> tcpip_send_msg_wait_sem() -> sys_mbox_post()
+
+
+  
+
