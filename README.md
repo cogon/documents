@@ -1,8 +1,8 @@
 # lwip in freertos add tap driver
-api:
+### api:
 
 1. 挂载tap驱动到lwip
-
+***************************************
 ````
 * netif_add(struct netif *netif, ip4_addr_t *ipaddr, ip4_addr_t *netmask, ip4_addr_t *gw,
           void *stat, netif_init_fn init, netif_input_fn input);
@@ -13,11 +13,11 @@ api:
 ````
 
 2. lwip 中启动接受服务
-
+******************************************
 > sys_thread_new("tcpecho_thread", tcpecho_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
 
 3. 操作系统需要提供的接口
-
+**************************************************
 * sys_thread_new
 
   创建线程
@@ -28,6 +28,7 @@ api:
 
 
 4.lwip 流程
+ **************************************************
  
 ### * 主线程
 >   tcpip_thread->tcpip_thread_handle_msg() :收到邮件就处理.调用msg中设置的回调函数
